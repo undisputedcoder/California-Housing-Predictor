@@ -39,6 +39,7 @@ def input_features():
 df, ocean_proximity = input_features()
 
 transformed_df = transform_data(df, ocean_proximity)
+print(transformed_df)
 
 prediction = int(model.predict(transformed_df))
 prediction_nice = f"{prediction:,d}"
