@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
+import tensorflow as tf
 from joblib import load
 
 from util import transform_data
     
-model = load('housing_model.pkl')
+model = tf.keras.models.load_model("model/")
 
 OCEAN_PROXIMITY = ['<1H OCEAN', 'INLAND', 'NEAR OCEAN', 'NEAR BAY', 'ISLAND']
 
@@ -39,9 +40,8 @@ def input_features():
 df, ocean_proximity = input_features()
 
 transformed_df = transform_data(df, ocean_proximity)
-print(transformed_df)
 
-prediction = int(model.predict(transformed_df))
+prediction = int(model.predict(transformed_df.to_numpy()))
 prediction_nice = f"{prediction:,d}"
 
 st.header('California Median House Value Predictor')
